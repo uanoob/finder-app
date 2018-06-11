@@ -51,9 +51,33 @@ class UI {
                       <h3 class="page-heading mb-3">Latest Repos</h3>
                       <div id="repos"></div>
                       `;
-
-    this.profile.innerHTML = template;
+    template ? (this.profile.innerHTML = template) : null;
   }
+
+  // Display repos in UI
+  showRepos(repos) {
+    let output = '';
+    repos.forEach(repo => {
+      output += `
+      <div class="card card-body mb-3">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+          </div>
+          <div class="col-md-6">
+          <span class="badge badge-primary">Stars: ${
+            repo.stargazers_count
+          }</span>
+          <span class="badge badge-secondary">Watchers: ${repo.watchers}</span>
+          <span class="badge badge-success">Forks: ${repo.forks_count}</span>
+          </div>
+        </div>
+      </div>
+      `;
+    });
+    output ? (document.getElementById('repos').innerHTML = output) : null;
+  }
+
   // Show alert message
   showAlert(message, className) {
     const template = `<div class="${className}">${message}</div>`;
